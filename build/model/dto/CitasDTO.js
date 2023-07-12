@@ -13,7 +13,7 @@ const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 require("reflect-metadata");
 const FunctionsCommon_1 = require("../../common/FunctionsCommon");
-class BodegasDTO {
+class CitasDTO {
     codigo;
     fecha;
     estado;
@@ -32,30 +32,30 @@ __decorate([
     (0, class_validator_1.IsInt)(),
     (0, class_transformer_1.Transform)(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
-], BodegasDTO.prototype, "codigo", void 0);
+], CitasDTO.prototype, "codigo", void 0);
 __decorate([
     (0, class_transformer_1.Expose)({ name: 'fecha' }),
     (0, class_validator_1.IsDateString)(),
     (0, class_validator_1.ValidateIf)((_, value) => !value),
     (0, class_transformer_1.Transform)(({ value }) => (0, FunctionsCommon_1.formatDate)(value), { toClassOnly: true }),
     __metadata("design:type", String)
-], BodegasDTO.prototype, "fecha", void 0);
+], CitasDTO.prototype, "fecha", void 0);
 __decorate([
     (0, class_transformer_1.Expose)({ name: 'estado' }),
     (0, class_validator_1.IsInt)(),
     (0, class_transformer_1.Transform)(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
-], BodegasDTO.prototype, "estado", void 0);
+], CitasDTO.prototype, "estado", void 0);
 __decorate([
     (0, class_transformer_1.Expose)({ name: 'medico' }),
     (0, class_validator_1.IsInt)(),
     (0, class_transformer_1.Transform)(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
-], BodegasDTO.prototype, "medico", void 0);
+], CitasDTO.prototype, "medico", void 0);
 __decorate([
     (0, class_transformer_1.Expose)({ name: 'datosUser' }),
     (0, class_validator_1.IsInt)(),
     (0, class_transformer_1.Transform)(({ value }) => parseInt(value), { toClassOnly: true }),
     __metadata("design:type", Number)
-], BodegasDTO.prototype, "datosUser", void 0);
-exports.default = BodegasDTO;
+], CitasDTO.prototype, "datosUser", void 0);
+exports.default = CitasDTO;

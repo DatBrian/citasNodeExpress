@@ -1,9 +1,9 @@
-import { Expose, Type, Transform } from 'class-transformer';
-import { IsString, IsInt, IsDateString, ValidateIf, IsOptional } from 'class-validator';
+import { Expose, Transform } from 'class-transformer';
+import { IsInt, IsDateString, ValidateIf, IsOptional } from 'class-validator';
 import 'reflect-metadata';
 import { formatDate } from '../../common/FunctionsCommon';
 
-class BodegasDTO {
+class CitasDTO {
     @Expose({ name: 'codigo' })
     @IsInt()
     @Transform(({ value }) =>
@@ -48,4 +48,4 @@ class BodegasDTO {
         this.datosUser = cit_datosUser;
     }
 }
-export default BodegasDTO;
+export default CitasDTO;
