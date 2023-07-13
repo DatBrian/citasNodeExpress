@@ -12,34 +12,32 @@ class UsuarioRepository extends Connection {
             const query = 'SELECT * FROM usuario ORDER BY usu_nombre ASC;';
             const [rows] = await connect.query<RowDataPacket[]>(query);
 
-            const usuarios: UsuarioEntity[] = rows.map((row) => {
-                const mappedRow = {
-                    name: row.usu_nombre,
-                    secondName: row.usu_segdo_nombre,
-                    lastName: row.usu_primer_apellido_usuar,
-                    secondLastName: row.usu_segdo_apellido_usuar,
-                    phone: row.usu_telefono,
-                    address: row.usu_direccion,
-                    mail: row["usu_e-mail"],
-                    doc: row.usu_tipodoc,
-                    genero: row.usu_genero,
-                    acudiente: row.usu_acudiente
-                };
-
-                return new UsuarioEntity(
-                    mappedRow.name,
-                    mappedRow.secondName,
-                    mappedRow.lastName,
-                    mappedRow.secondLastName,
-                    mappedRow.phone,
-                    mappedRow.address,
-                    mappedRow.mail,
-                    mappedRow.doc,
-                    mappedRow.genero,
-                    mappedRow.acudiente
-                );
-            });
-            return usuarios;
+            return rows.map(
+                ({
+                usu_nombre: name,
+                usu_segdo_nombre: secondName,
+                usu_primer_apellido_usuar: lastName,
+                usu_segdo_apellido_usuar: secondLastName,
+                usu_telefono: phone,
+                usu_direccion: address,
+                'usu_e-mail': mail,
+                usu_tipodoc: doc,
+                usu_genero: genero,
+                usu_acudiente: acudiente,
+                }) =>
+                new UsuarioEntity(
+                    name,
+                    secondName,
+                    lastName,
+                    secondLastName,
+                    phone,
+                    address,
+                    mail,
+                    doc,
+                    genero,
+                    acudiente
+                )
+            );
         } catch (error) {
             console.error('Error al obtener los pacientes :(', error);
             throw new Error('Error al obtener los pacientes :(');
