@@ -14,7 +14,7 @@ class CitasRepository extends Connection_1.Connection {
             const connection = await this.connect;
             const query = 'SELECT * FROM cita ORDER BY cit_fecha ASC';
             const [rows] = await connection.query(query);
-            const Citas = rows.map((row) => {
+            const citas = rows.map((row) => {
                 const mappedRow = {
                     codigo: row.cit_codigo,
                     fecha: row.cit_fecha,
@@ -24,7 +24,7 @@ class CitasRepository extends Connection_1.Connection {
                 };
                 return new CitasEntity_1.default(mappedRow.codigo, mappedRow.fecha, mappedRow.estado, mappedRow.medico, mappedRow.datosUser);
             });
-            return Citas;
+            return citas;
         }
         catch (error) {
             console.error('Error al obtener las Citas :(', error);

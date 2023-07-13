@@ -9,8 +9,8 @@ class CitasController {
     }
     getCitas = async (_req, res) => {
         try {
-            const Citas = await this.service.getCitas();
-            res.json(Citas);
+            const citas = await this.service.getCitas();
+            res.json(citas);
         }
         catch (error) {
             console.error('Error al obtener las Citas:', error);

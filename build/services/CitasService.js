@@ -9,8 +9,8 @@ class CitasService {
     }
     async getCitas() {
         try {
-            const Citas = await this.repository.getCitas();
-            return Citas;
+            const citas = await this.repository.getCitas();
+            return citas;
         }
         catch (error) {
             throw error;

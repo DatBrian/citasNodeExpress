@@ -26,24 +26,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.citasRoutes = void 0;
+exports.usuarioRoutes = void 0;
 const express_1 = require("express");
-const CitasController_1 = __importStar(require("../controllers/CitasController"));
-const ValidateDTOMiddleware_1 = __importDefault(require("../middleware/ValidateDTOMiddleware"));
 const RouterCommon_1 = __importDefault(require("../common/RouterCommon"));
-class CitasRoutes extends RouterCommon_1.default {
+const UsuarioController_1 = __importStar(require("../controllers/UsuarioController"));
+const ValidateDTOMiddleware_1 = __importDefault(require("../middleware/ValidateDTOMiddleware"));
+class UsuarioRoutes extends RouterCommon_1.default {
     path;
     router;
     controller;
     constructor() {
-        super(CitasController_1.default, ValidateDTOMiddleware_1.default);
-        this.path = '/citas';
+        super(UsuarioController_1.default, ValidateDTOMiddleware_1.default);
+        this.path = '/pacientes';
         this.router = (0, express_1.Router)();
-        this.controller = CitasController_1.citasController;
+        this.controller = UsuarioController_1.usuariosController;
         this.initRoutes();
     }
     initRoutes() {
-        this.router.get(`${this.path}`, this.controller.getCitas);
+        this.router.get(`${this.path}`, this.controller.getUsuarios);
     }
 }
-exports.citasRoutes = new CitasRoutes();
+exports.usuarioRoutes = new UsuarioRoutes();

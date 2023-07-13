@@ -2,7 +2,6 @@ import { Router } from "express";
 import CitasController, { citasController } from "../controllers/CitasController";
 import ValidateMiddlewareDTO from "../middleware/ValidateDTOMiddleware";
 import RouterCommon from "../common/RouterCommon";
-// import CitasDTO from "../model/dto/CitasDTO";
 
 class CitasRoutes extends RouterCommon<CitasController, ValidateMiddlewareDTO>{
     public path: string;

@@ -12,7 +12,7 @@ class CitasRepository extends Connection {
             const query = 'SELECT * FROM cita ORDER BY cit_fecha ASC';
             const [rows] = await connection.query<RowDataPacket[]>(query);
 
-            const Citas: CitasEntity[] = rows.map((row) => {
+            const citas: CitasEntity[] = rows.map((row) => {
                 const mappedRow = {
                     codigo: row.cit_codigo,
                     fecha: row.cit_fecha,
@@ -30,7 +30,7 @@ class CitasRepository extends Connection {
                 );
             });
 
-            return Citas;
+            return citas;
         } catch (error) {
             console.error('Error al obtener las Citas :(', error);
             throw new Error('Error al obtener las Citas :(');

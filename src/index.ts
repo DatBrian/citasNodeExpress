@@ -1,8 +1,10 @@
 import App from './app';
 import { citasRoutes } from './routes/CitasRoutes';
+import { usuarioRoutes } from './routes/UsuarioRoutes';
 
 const app = new App([
-    citasRoutes
+    citasRoutes,
+    usuarioRoutes
 ]);
 
 app.listen();

@@ -1,4 +1,3 @@
-// import CitasDTO from "../model/dto/CitasDTO";
 import CitasEntity from "../model/entities/CitasEntity";
 import CitasRepository, { citasRepository } from "../repositories/CitasRepository";
 
@@ -11,8 +10,8 @@ class CitasService {
 
     public async getCitas(): Promise<CitasEntity[]> {
         try {
-            const Citas = await this.repository.getCitas();
-            return Citas;
+            const citas = await this.repository.getCitas();
+            return citas;
         } catch (error) {
             throw error;
         }
