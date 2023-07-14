@@ -92,6 +92,7 @@ CREATE TABLE `consultorio` (
 
 LOCK TABLES `consultorio` WRITE;
 /*!40000 ALTER TABLE `consultorio` DISABLE KEYS */;
+INSERT INTO `consultorio` VALUES (1,'consultorio de prueba 1');
 /*!40000 ALTER TABLE `consultorio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,6 +195,7 @@ CREATE TABLE `medico` (
 
 LOCK TABLES `medico` WRITE;
 /*!40000 ALTER TABLE `medico` DISABLE KEYS */;
+INSERT INTO `medico` VALUES (465899584,'David Rojas',1,1),(465899585,'David Rojas',1,2);
 /*!40000 ALTER TABLE `medico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +250,7 @@ CREATE TABLE `usuario` (
   CONSTRAINT `fk_usuario_acudiente` FOREIGN KEY (`usu_acudiente`) REFERENCES `acudiente` (`acu_codigo`),
   CONSTRAINT `fk_usuario_documento` FOREIGN KEY (`usu_tipodoc`) REFERENCES `tipo_documento` (`tipdoc_id`),
   CONSTRAINT `fk_usuario_genero` FOREIGN KEY (`usu_genero`) REFERENCES `genero` (`gen_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,4 +271,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-12  9:10:31
+-- Dump completed on 2023-07-14  9:06:34
