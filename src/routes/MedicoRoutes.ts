@@ -2,6 +2,7 @@ import { Router } from "express";
 import RouterCommon from "../common/RouterCommon";
 import MedicoController, { medicoController } from "../controllers/MedicoController";
 import ValidateMiddlewareDTO from "../middleware/ValidateDTOMiddleware";
+import MedicosDTO from "../model/dto/MedicosDTO";
 
 
 class MedicoRoutes extends RouterCommon<MedicoController, ValidateMiddlewareDTO>{
@@ -18,7 +19,9 @@ class MedicoRoutes extends RouterCommon<MedicoController, ValidateMiddlewareDTO>
     }
 
     private initRoutes() {
-        this.router.get(`${this.path}`, this.controller.getMedicos)
+        this.router.get(`${this.path}/:especialidad`,
+        (req, res, next) => ValidateMiddlewareDTO.validator(req, res, next, MedicosDTO),
+        this.controller.getMedicos)
     }
 }
 export const medicosRoutes = new MedicoRoutes();

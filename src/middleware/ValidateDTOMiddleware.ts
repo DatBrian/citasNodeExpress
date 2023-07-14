@@ -12,7 +12,7 @@ class ValidateMiddlewareDTO {
         type: any
     ) {
         try {
-            const dto = plainToClass(type, req.body);
+            const dto = plainToClass(type, JSON.parse(JSON.stringify(req.params)));
             const errors: ValidationError[] = await validate(dto);
             console.log(dto);
             return errors.length > 0

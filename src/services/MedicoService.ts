@@ -9,9 +9,9 @@ class MedicoService{
         this.repository = medicoRepository;
     }
 
-    public async getMedicos(): Promise<MedicosEntity[]>{
+    public async getMedicos(especialidad:string): Promise<MedicosEntity[]>{
         try {
-            const medicos = await this.repository.getMedicos();
+            const medicos = await this.repository.getMedicos(especialidad);
             return medicos;
         } catch (error) {
             throw error;
