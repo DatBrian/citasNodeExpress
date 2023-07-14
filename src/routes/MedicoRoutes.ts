@@ -20,8 +20,8 @@ class MedicoRoutes extends RouterCommon<MedicoController, ValidateMiddlewareDTO>
 
     private initRoutes() {
         this.router.get(`${this.path}/:especialidad`,
-        (req, res, next) => ValidateMiddlewareDTO.validator(req, res, next, MedicosDTO),
-        this.controller.getMedicos)
+            (req, res, next) => ValidateMiddlewareDTO.validator(req, res, next, MedicosDTO),
+            this.controller.getMedicos)
     }
 }
 export const medicosRoutes = new MedicoRoutes();
