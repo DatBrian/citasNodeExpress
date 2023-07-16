@@ -80,6 +80,8 @@ npm run start:dev
 
 5. En el archivo de servicio se realizará toda la lógica de negocio necesaria para llamar al archivo de repositorio el que realizará las consultas y interactuará con la base de datos.
 
+6. En el archivo de repositorio se realizará la respectiva consulta y esto devolverá la información necesaria la cual va a recorrer de nuevo toda la ruta anterior de manera inversa hasta mostrar los resultados.
+
 # **EndPoints:**
 
 ## GET:
