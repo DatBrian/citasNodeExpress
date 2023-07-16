@@ -8,10 +8,10 @@ class MedicoController {
         this.service = medicoService;
     }
 
-    public getMedicos = async (req: Request, res: Response) => {
+    public getMedicosbyEsp = async (req: Request, res: Response) => {
         try {
             const especialidad = req.params.especialidad;
-            const medicos = await this.service.getMedicos(especialidad);
+            const medicos = await this.service.getMedicosbyEsp(especialidad);
             res.json(medicos);
         } catch (error) {
             console.error('Error al obtener las Citas:', error);

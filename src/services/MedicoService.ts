@@ -1,4 +1,4 @@
-import MedicosEntity from "../model/entities/MedicosEntity";
+import MedicosDTO from "../model/dto/MedicosDTO";
 import MedicoRepository, { medicoRepository } from "../repositories/MedicoRepository";
 
 
@@ -9,12 +9,12 @@ class MedicoService{
         this.repository = medicoRepository;
     }
 
-    public async getMedicos(especialidad: string): Promise<MedicosEntity[] | string> {
+    public async getMedicosbyEsp(especialidad: string): Promise<MedicosDTO[] | string> {
         try {
             const especialidadExists = await this.repository.verifyEspecialidad(especialidad);
 
             return especialidadExists
-                ? await this.repository.getMedicos(especialidad)
+                ? await this.repository.getMedicosbyEsp(especialidad)
                 : "La especialidad indicada no existe";
         } catch (error) {
             throw error;
