@@ -9,6 +9,15 @@ class MedicoService{
         this.repository = medicoRepository;
     }
 
+    public async getMedicos(): Promise<MedicosDTO[]>{
+        try {
+            const medicos = await this.repository.getMedicos();
+            return medicos;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     public async getMedicosbyEsp(especialidad: string): Promise<MedicosDTO[] | string> {
         try {
             const especialidadExists = await this.repository.verifyEspecialidad(especialidad);

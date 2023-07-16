@@ -6,6 +6,32 @@ import { plainToClass } from "class-transformer";
 
 class MedicoRepository extends Connection{
 
+    public async getMedicos(): Promise<MedicosDTO[]>{
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `
+            SELECT medico.*, especialidad.esp_nombre AS nombre_especialidad, consultorio.cons_nombre AS nombre_consultorio
+            FROM medico
+            JOIN especialidad ON medico.med_especialidad = especialidad.esp_id
+            JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo
+            `;
+            const [rows] = await connect.query<RowDataPacket[]>(query);
+            const dtos: MedicosDTO[] = rows.map((row) => {
+                return plainToClass(MedicosDTO, row, {
+                    excludeExtraneousValues: true
+                });
+            });
+            return dtos;
+
+        } catch (error) {
+            console.error('Error al obtener los médicos :(', error);
+            throw new Error('Error al obtener los médicos :(');
+        } finally {
+            connection.release();
+        }
+    }
+
     public async getMedicosbyEsp(especialidad: string): Promise<MedicosDTO[]>{
         const connection = await dataSource.getConnection();
         try {
@@ -25,8 +51,8 @@ class MedicoRepository extends Connection{
             return dtos;
 
         } catch (error) {
-            console.error('Error al obtener los médicos :(', error);
-            throw new Error('Error al obtener los médicos :(');
+            console.error('Error al obtener los médicos con esa especialidad :(', error);
+            throw new Error('Error al obtener los médicos con esa especialidad :(');
         } finally {
             connection.release();
         }
