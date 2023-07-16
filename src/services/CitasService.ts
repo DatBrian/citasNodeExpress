@@ -17,6 +17,15 @@ class CitasService {
         }
     }
 
+    public async getUserCita(id:string): Promise<CitasDTO[]>{
+        try {
+            const cita = await this.repository.nextUserCita(id);
+            return cita;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 export default CitasService;

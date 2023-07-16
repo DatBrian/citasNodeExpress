@@ -16,7 +16,8 @@ class CitasRepository extends Connection {
             INNER JOIN estado_cita ON cita.cit_estadoCita = estado_cita.estcita_id
             INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
             INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
-            ORDER BY cita.cit_fecha ASC`;
+            ORDER BY cita.cit_fecha ASC
+            `;
             const [rows] = await connection.query<RowDataPacket[]>(query);
             const dtos: CitasDTO[] = rows.map((row) => {
                 return plainToClass(CitasDTO, row, {
@@ -28,6 +29,35 @@ class CitasRepository extends Connection {
         } catch (error) {
             console.error('Error al obtener las Citas :(', error);
             throw new Error('Error al obtener las Citas :(');
+        } finally {
+            connection.release();
+        }
+    }
+
+    public async nextUserCita(id: string): Promise<CitasDTO[]> {
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `
+            SELECT cita.*, estado_cita.estcita_nombre AS estado, medico.med_nombreCompleto AS medico_nombre, usuario.usu_nombre AS usuario_nombre
+            FROM cita
+            INNER JOIN estado_cita ON cita.cit_estadoCita = estado_cita.estcita_id
+            INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+            INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+            WHERE cit_datosUsuario = ?
+            ORDER BY cita.cit_fecha ASC
+            LIMIT 1`;
+            const [rows] = await connect.query<RowDataPacket[]>(query, [id]);
+            const dtos: CitasDTO[] = rows.map((row) => {
+                return plainToClass(CitasDTO, row, {
+                    excludeExtraneousValues: true
+                });
+            });
+            return dtos;
+
+        } catch (error) {
+            console.error('Error al obtener la Citas del Paciente :(', error);
+            throw new Error('Error al obtener la Cita del Paciente :(');
         } finally {
             connection.release();
         }

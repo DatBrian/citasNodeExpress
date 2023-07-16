@@ -18,6 +18,17 @@ class CitasController {
         }
     }
 
+    public getUserCita = async (req: Request, res: Response) => {
+        try {
+            const usuario = req.params.idUsuario;
+            const cita = await this.service.getUserCita(usuario);
+            res.json(cita);
+        } catch (error) {
+            console.error('Error al obtener la Cita del paciente:', error);
+            res.status(500).json({ error: 'Ocurrió un error al obtener la Cita del paciente' });
+        }
+    }
+
 }
 
 export default CitasController;

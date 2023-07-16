@@ -2,6 +2,7 @@ import { Router } from "express";
 import CitasController, { citasController } from "../controllers/CitasController";
 import ValidateMiddlewareDTO from "../middleware/ValidateDTOMiddleware";
 import RouterCommon from "../common/RouterCommon";
+import CitasDTO from "../model/dto/CitasDTO";
 
 class CitasRoutes extends RouterCommon<CitasController, ValidateMiddlewareDTO>{
     public path: string;
@@ -18,6 +19,10 @@ class CitasRoutes extends RouterCommon<CitasController, ValidateMiddlewareDTO>{
 
     private initRoutes() {
         this.router.get(`${this.path}`, this.controller.getCitas)
+
+        this.router.get(`${this.path}/:idUsuario`,
+            (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
+            this.controller.getUserCita)
     }
 }
 
