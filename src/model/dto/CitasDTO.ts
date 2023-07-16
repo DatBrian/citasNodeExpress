@@ -47,6 +47,11 @@ class CitasDTO {
     @Transform(({ value }) => parseInt(value))
     public idMedico: string
 
+    @Expose({ name: 'count' })
+    @IsOptional()
+    @IsInt()
+    public count: number;
+
     constructor(
         cit_fecha: string,
         cit_estadoCita: number,
@@ -56,7 +61,8 @@ class CitasDTO {
         medico_nombre: string,
         usuario_nombre: string,
         idUsuario: string,
-        idMedico: string
+        idMedico: string,
+        count: number
     ) {
         this.date = cit_fecha;
         this.id_estado = cit_estadoCita;
@@ -67,6 +73,7 @@ class CitasDTO {
         this.usuario = usuario_nombre;
         this.idUsuario = idUsuario;
         this.idMedico = idMedico;
+        this.count = count;
     }
 }
 export default CitasDTO;

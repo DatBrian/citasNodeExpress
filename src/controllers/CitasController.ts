@@ -61,6 +61,18 @@ class CitasController {
             res.status(500).json({ error: 'Ocurrió un error al obtener las citas de esa fecha' });
         }
     }
+
+    public getCountCitas = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const date = req.params.date;
+            const count = await this.service.getCoutCitas(id, date);
+            res.json(count);
+        } catch (error) {
+            console.error('Error al obtener el conteo de citas:', error);
+            res.status(500).json({ error: 'Ocurrió un error al obtener el conteo de citas' });
+        }
+    }
 }
 
 export default CitasController;

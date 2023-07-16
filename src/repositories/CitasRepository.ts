@@ -145,6 +145,30 @@ class CitasRepository extends Connection {
             connection.release();
         }
     }
+
+    public async countCitas(id: string, date: string): Promise<CitasDTO[]>{
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `
+            SELECT COUNT(*) AS count
+            FROM cita
+            WHERE cit_medico = ? AND cit_fecha = ?
+            `;
+            const [rows] = await connect.query<RowDataPacket[]>(query, [id, date]);
+            const dtos: CitasDTO[] = rows.map((row) => {
+                return plainToClass(CitasDTO, row, {
+                    excludeExtraneousValues: true
+                });
+            });
+            return dtos;
+        } catch (error) {
+            console.error('Error al obtener el conteo de las citas :(', error);
+            throw new Error('Error al obtener el conteo de las citas :(');
+        } finally {
+            connection.release();
+        }
+    }
 }
 export default CitasRepository;
 export const citasRepository = new CitasRepository();

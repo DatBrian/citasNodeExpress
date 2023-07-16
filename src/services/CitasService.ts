@@ -54,6 +54,15 @@ class CitasService {
         }
     }
 
+    public async getCoutCitas(id: string, date: string): Promise<CitasDTO[]>{
+        try {
+            const count = await this.repository.countCitas(id, date);
+            return count;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 export default CitasService;
