@@ -1,7 +1,7 @@
-# Primer Proyecto Back-End con NodeJS by: @DatBrian
+# Segundo proyecto Back-End con NodeJS by: @DatBrian
 
 ## Descripción del proyecto:
-#### Proyecto de práctica en el que se realizó la implementación de un Back-End completo hecho con Node.JS el cual administra una base de datos relacional en una ejemplificación de sistema de gestión de usuarios y citas, productos entre otros.
+#### Proyecto de práctica en el que se realizó la implementación de un Back-End completo hecho con Node.JS el cual administra una base de datos relacional en una ejemplificación de sistema de gestión de usuarios y citas con sus respectivos datos e información.
 
 ---
 
