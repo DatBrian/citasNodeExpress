@@ -1,4 +1,5 @@
-import UsuarioEntity from "../model/entities/UsuarioEntity";
+import UsuarioDTO from "../model/dto/UsuarioDTO";
+// import UsuarioEntity from "../model/entities/UsuarioEntity";
 import UsuarioRepository, { usuarioRepository } from "../repositories/UsuarioRepository";
 
 class UsuarioService{
@@ -8,7 +9,7 @@ class UsuarioService{
         this.repository = usuarioRepository;
     }
 
-    public async getUsuarios(): Promise<UsuarioEntity[]>{
+    public async getUsuarios(): Promise<UsuarioDTO[]>{
         try {
             const usuarios = await this.repository.getUsuarios();
             return usuarios;

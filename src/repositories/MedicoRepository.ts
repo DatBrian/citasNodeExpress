@@ -23,6 +23,24 @@ class MedicoRepository extends Connection{
             connection.release();
         }
     }
+
+    public async verifyEspecialidad(especialidad: string): Promise<boolean>{
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = 'SELECT COUNT(*) as count FROM especialidad WHERE esp_nombre = ?';
+            const [rows] = await connect.query<RowDataPacket[]>(query, [especialidad]);
+
+            const count = rows[0].count;
+
+            return (count > 0) ? true : false;
+        } catch (error) {
+            console.error('Error al verificar la especialidad:', error);
+            throw new Error('Error al verificar la especialidad');
+        } finally {
+            connection.release();
+        }
+    }
 }
 export default MedicoRepository;
 export const medicoRepository = new MedicoRepository();

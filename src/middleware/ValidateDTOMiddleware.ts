@@ -5,14 +5,14 @@ import { validate, ValidationError } from "class-validator";
 class ValidateMiddlewareDTO {
     constructor() { }
 
-    public static async validator(
+    public static async validatorParams(
         req: Request,
         res: Response,
         next: NextFunction,
         type: any
     ) {
         try {
-            const dto = plainToClass(type, JSON.parse(JSON.stringify(req.params)));
+            const dto = plainToClass(type, JSON.parse(JSON.stringify(req.params)), { excludeExtraneousValues: true });
             const errors: ValidationError[] = await validate(dto);
             return errors.length > 0
                 ? res.status(400).json({

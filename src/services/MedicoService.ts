@@ -9,14 +9,18 @@ class MedicoService{
         this.repository = medicoRepository;
     }
 
-    public async getMedicos(especialidad:string): Promise<MedicosEntity[]>{
+    public async getMedicos(especialidad: string): Promise<MedicosEntity[] | string> {
         try {
-            const medicos = await this.repository.getMedicos(especialidad);
-            return medicos;
+            const especialidadExists = await this.repository.verifyEspecialidad(especialidad);
+
+            return especialidadExists
+                ? await this.repository.getMedicos(especialidad)
+                : "La especialidad indicada no existe";
         } catch (error) {
             throw error;
         }
     }
+
 }
 
 export default MedicoService;

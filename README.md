@@ -87,3 +87,5 @@ npm run start:dev
 **https://{host}:{port}/api/v1/citas** -> Obtener todas las citas en orden alfabético
 
 **https://{host}:{port}/api/v1/pacientes** -> Obtener todos los pacientes en orden alfabético
+
+**https://{host}:{port}/api/v1/medicos/especialidad** -> Obtener todos los médicos de una especialidad específica
