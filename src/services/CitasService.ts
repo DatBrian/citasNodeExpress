@@ -1,4 +1,5 @@
 import CitasDTO from "../model/dto/CitasDTO";
+import UsuarioDTO from "../model/dto/UsuarioDTO";
 import CitasRepository, { citasRepository } from "../repositories/CitasRepository";
 
 class CitasService {
@@ -21,6 +22,15 @@ class CitasService {
         try {
             const cita = await this.repository.nextUserCita(id);
             return cita;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async getUserMedicoCita(id:string): Promise<UsuarioDTO[]>{
+        try {
+            const pacientes = await this.repository.userMedicoCita(id);
+            return pacientes;
         } catch (error) {
             throw error;
         }

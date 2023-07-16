@@ -1,44 +1,54 @@
 import { Expose } from 'class-transformer';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 class UsuarioDTO {
     @Expose({ name: 'usu_nombre' })
+    @IsOptional()
     @IsString()
     public name: string;
 
     @Expose({ name: 'usu_segdo_nombre' })
+    @IsOptional()
     @IsString()
     public secondName: string;
 
     @Expose({ name: 'usu_primer_apellido_usuar' })
+    @IsOptional()
     @IsString()
     public lastName: string;
 
     @Expose({ name: 'usu_segdo_apellido_usuar' })
+    @IsOptional()
     @IsString()
     public secondLastName: string;
 
     @Expose({ name: 'usu_telefono' })
+    @IsOptional()
     @IsString()
     public phone: string;
 
     @Expose({ name: 'usu_direccion' })
+    @IsOptional()
     @IsString()
     public address: string;
 
     @Expose({ name: 'usu_email' })
+    @IsOptional()
     @IsString()
     public mail: string;
 
     @Expose({ name: 'usu_tipodoc' })
+    @IsOptional()
     @IsString()
     public doc: string;
 
     @Expose({ name: 'genero' })
+    @IsOptional()
     @IsString()
     public genero: string;
 
     @Expose({ name: 'usu_acudiente' })
+    @IsOptional()
     @IsString()
     public acudiente: string;
 

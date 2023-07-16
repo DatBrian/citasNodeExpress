@@ -3,6 +3,7 @@ import { dataSource } from "../config/ConnectDataSource";
 import { Connection } from "../db/Connection";
 import CitasDTO from "../model/dto/CitasDTO";
 import { plainToClass } from "class-transformer";
+import UsuarioDTO from "../model/dto/UsuarioDTO";
 
 class CitasRepository extends Connection {
 
@@ -58,6 +59,33 @@ class CitasRepository extends Connection {
         } catch (error) {
             console.error('Error al obtener la Citas del Paciente :(', error);
             throw new Error('Error al obtener la Cita del Paciente :(');
+        } finally {
+            connection.release();
+        }
+    }
+
+    public async userMedicoCita(id: string): Promise<UsuarioDTO[]> {
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `
+                SELECT u.*
+                FROM cita c
+                INNER JOIN usuario u ON c.cit_datosUsuario = u.usu_id
+                WHERE c.cit_medico = ?;
+            `;
+            const [rows] = await connect.query<RowDataPacket[]>(query, [id]);
+            console.log(rows);
+            const dtos: UsuarioDTO[] = rows.map((row) => {
+                return plainToClass(UsuarioDTO, row, {
+                    excludeExtraneousValues: true
+                });
+            });
+            return dtos;
+
+        } catch (error) {
+            console.error('Error al obtener los pacientes del doctor :(', error);
+            throw new Error('Error al obtener los pacientes del doctor :(');
         } finally {
             connection.release();
         }
