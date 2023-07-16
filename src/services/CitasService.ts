@@ -45,6 +45,15 @@ class CitasService {
         }
     }
 
+    public async getDateCitas(date: string): Promise<CitasDTO[]>{
+        try {
+            const citas = await this.repository.datesCita(date);
+            return citas;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 export default CitasService;

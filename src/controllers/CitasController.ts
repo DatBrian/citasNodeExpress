@@ -51,6 +51,16 @@ class CitasController {
         }
     }
 
+    public getDateCitas = async (req: Request, res: Response) => {
+        try {
+            const date = req.params.date;
+            const citas = await this.service.getDateCitas(date);
+            res.json(citas);
+        } catch (error) {
+            console.error('Error al obtener las citas de esa fecha:', error);
+            res.status(500).json({ error: 'Ocurrió un error al obtener las citas de esa fecha' });
+        }
+    }
 }
 
 export default CitasController;
