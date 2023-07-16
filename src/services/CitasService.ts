@@ -1,4 +1,4 @@
-import CitasEntity from "../model/entities/CitasEntity";
+import CitasDTO from "../model/dto/CitasDTO";
 import CitasRepository, { citasRepository } from "../repositories/CitasRepository";
 
 class CitasService {
@@ -8,7 +8,7 @@ class CitasService {
         this.repository = citasRepository;
     }
 
-    public async getCitas(): Promise<CitasEntity[]> {
+    public async getCitas(): Promise<CitasDTO[]> {
         try {
             const citas = await this.repository.getCitas();
             return citas;

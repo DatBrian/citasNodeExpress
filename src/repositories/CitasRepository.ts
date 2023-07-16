@@ -1,36 +1,30 @@
 import { RowDataPacket } from "mysql2/promise";
 import { dataSource } from "../config/ConnectDataSource";
-import CitasEntity from "../model/entities/CitasEntity";
 import { Connection } from "../db/Connection";
+import CitasDTO from "../model/dto/CitasDTO";
+import { plainToClass } from "class-transformer";
 
 class CitasRepository extends Connection {
 
-    public async getCitas(): Promise<CitasEntity[]> {
+    public async getCitas(): Promise<CitasDTO[]> {
         const connection = await dataSource.getConnection();
         try {
             const connection = await this.connect;
-            const query = 'SELECT * FROM cita ORDER BY cit_fecha ASC';
+            const query = `
+            SELECT cita.*, estado_cita.estcita_nombre AS estado, medico.med_nombreCompleto AS medico_nombre, usuario.usu_nombre AS usuario_nombre
+            FROM cita
+            INNER JOIN estado_cita ON cita.cit_estadoCita = estado_cita.estcita_id
+            INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+            INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+            ORDER BY cita.cit_fecha ASC`;
             const [rows] = await connection.query<RowDataPacket[]>(query);
-
-            const citas: CitasEntity[] = rows.map((row) => {
-                const mappedRow = {
-                    codigo: row.cit_codigo,
-                    fecha: row.cit_fecha,
-                    estado: row.cit_estadoCita,
-                    medico: row.cit_medico,
-                    datosUser: row.cit_datosUsuario
-                };
-
-                return new CitasEntity(
-                    mappedRow.codigo,
-                    mappedRow.fecha,
-                    mappedRow.estado,
-                    mappedRow.medico,
-                    mappedRow.datosUser
-                );
+            const dtos: CitasDTO[] = rows.map((row) => {
+                return plainToClass(CitasDTO, row, {
+                    excludeExtraneousValues: true
+                });
             });
+            return dtos;
 
-            return citas;
         } catch (error) {
             console.error('Error al obtener las Citas :(', error);
             throw new Error('Error al obtener las Citas :(');
