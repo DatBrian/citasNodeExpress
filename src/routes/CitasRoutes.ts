@@ -20,13 +20,17 @@ class CitasRoutes extends RouterCommon<CitasController, ValidateMiddlewareDTO>{
     private initRoutes() {
         this.router.get(`${this.path}`, this.controller.getCitas)
 
-        this.router.get(`${this.path}/paciente/:idUsuario`,
+        this.router.get(`${this.path}/next/:idUsuario`,
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
-            this.controller.getUserCita)
+            this.controller.getNextCita)
 
         this.router.get(`${this.path}/medico/:idMedico`,
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getUserMedicoCita)
+
+        this.router.get(`${this.path}/paciente/:id`,
+            (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
+            this.controller.getUserCitas)
     }
 }
 

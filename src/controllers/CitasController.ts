@@ -18,10 +18,10 @@ class CitasController {
         }
     }
 
-    public getUserCita = async (req: Request, res: Response) => {
+    public getNextCita = async (req: Request, res: Response) => {
         try {
             const usuario = req.params.idUsuario;
-            const cita = await this.service.getUserCita(usuario);
+            const cita = await this.service.getNextCita(usuario);
             res.json(cita);
         } catch (error) {
             console.error('Error al obtener la Cita del paciente:', error);
@@ -37,6 +37,17 @@ class CitasController {
         } catch (error) {
             console.error('Error al obtener el paciente del doctor:', error);
             res.status(500).json({ error: 'Ocurrió un error al obtener el paciente del doctor' });
+        }
+    }
+
+    public getUserCitas = async (req: Request, res: Response) => {
+        try {
+            const paciente = req.params.id;
+            const citas = await this.service.getUserCitas(paciente);
+            res.json(citas);
+        } catch (error) {
+            console.error('Error al obtener las citas del paciente:', error);
+            res.status(500).json({ error: 'Ocurrió un error al obtener las citas del paciente' });
         }
     }
 

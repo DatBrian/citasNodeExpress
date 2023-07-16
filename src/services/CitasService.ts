@@ -18,7 +18,7 @@ class CitasService {
         }
     }
 
-    public async getUserCita(id:string): Promise<CitasDTO[]>{
+    public async getNextCita(id:string): Promise<CitasDTO[]>{
         try {
             const cita = await this.repository.nextUserCita(id);
             return cita;
@@ -31,6 +31,15 @@ class CitasService {
         try {
             const pacientes = await this.repository.userMedicoCita(id);
             return pacientes;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async getUserCitas(id: string): Promise<CitasDTO[]>{
+        try {
+            const citas = await this.repository.userCitas(id);
+            return citas;
         } catch (error) {
             throw error;
         }
