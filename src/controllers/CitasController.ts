@@ -95,6 +95,17 @@ class CitasController {
             res.status(500).json({ error: 'Ocurrió un error al obtener las citas de ese genero' });
         }
     }
+    
+    public getRefusedCitas = async (req: Request, res: Response) => {
+        try {
+            const month = req.params.month;
+            const citas = await this.service.getRefusedCitas(month);
+            res.json(citas);
+        } catch (error) {
+            console.error('Error al obtener las citas rechazadas de ese mes:', error);
+            res.status(500).json({ error: 'Ocurrió un error al obtener las citas rechazadas de ese mes' });
+        }
+    }
 }
 
 export default CitasController;

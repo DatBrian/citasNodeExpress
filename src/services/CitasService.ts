@@ -82,6 +82,15 @@ class CitasService {
         }
     }
 
+    public async getRefusedCitas(month: string): Promise<CitasDTO[]>{
+        try {
+            const citas = await this.repository.getRefusedCitas(month);
+            return citas;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 export default CitasService;
