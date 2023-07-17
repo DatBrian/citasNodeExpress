@@ -2,6 +2,7 @@ import { Router } from "express";
 import RouterCommon from "../common/RouterCommon";
 import UsuarioController, { usuariosController } from "../controllers/UsuarioController";
 import ValidateMiddlewareDTO from "../middleware/ValidateDTOMiddleware";
+import UsuarioInsertDTO from "../model/dto/UsuarioInsert";
 
 
 class UsuarioRoutes extends RouterCommon<UsuarioController, ValidateMiddlewareDTO>{
@@ -19,6 +20,12 @@ class UsuarioRoutes extends RouterCommon<UsuarioController, ValidateMiddlewareDT
 
     private initRoutes() {
         this.router.get(`${this.path}`, this.controller.getUsuarios)
+
+        this.router.post(`${this.path}`,
+            (req, res, next) => {
+                ValidateMiddlewareDTO.validator(req, res, next, UsuarioInsertDTO);
+            },
+            (req, res) => this.controller.insertUsuario(req, res));
     }
 }
 

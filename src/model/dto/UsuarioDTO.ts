@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import { Expose, Transform } from 'class-transformer';
 import { IsOptional, IsString } from 'class-validator';
 
 class UsuarioDTO {
@@ -39,18 +39,33 @@ class UsuarioDTO {
 
     @Expose({ name: 'usu_tipodoc' })
     @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    public doc: number;
+
+    @Expose({ name: 'usu_acudiente' })
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    public acudiente: number;
+
+    @Expose({ name: 'usu_genero' })
+    @IsOptional()
+    @Transform(({ value }) => parseInt(value))
+    public genero: number;
+
+    @Expose({ name: 'documento' })
+    @IsOptional()
     @IsString()
-    public doc: string;
+    public documento: string;
 
     @Expose({ name: 'genero' })
     @IsOptional()
     @IsString()
-    public genero: string;
+    public name_genero: string;
 
-    @Expose({ name: 'usu_acudiente' })
+    @Expose({ name: 'acudiente' })
     @IsOptional()
     @IsString()
-    public acudiente: string;
+    public name_acudiente: string;
 
     constructor(
         usu_nombre: string,
@@ -60,9 +75,12 @@ class UsuarioDTO {
         usu_telefono: string,
         usu_direccion: string,
         usu_email: string,
-        usu_tipodoc: string,
+        usu_tipodoc: number,
+        usu_acudiente: number,
+        usu_genero: number,
+        documento: string,
         genero: string,
-        usu_acudiente: string
+        acudiente: string
     ) {
         this.name = usu_nombre;
         this.secondName = usu_segdo_nombre;
@@ -72,8 +90,11 @@ class UsuarioDTO {
         this.address = usu_direccion;
         this.mail = usu_email;
         this.doc = usu_tipodoc;
-        this.genero = genero;
         this.acudiente = usu_acudiente;
+        this.genero = usu_genero;
+        this.documento = documento;
+        this.name_genero = genero;
+        this.name_acudiente = acudiente;
     }
 }
 

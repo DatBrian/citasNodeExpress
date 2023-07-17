@@ -17,6 +17,16 @@ class UsuarioController{
             res.status(500).json({ error: 'Ocurrió un error al obtener los pacientes' });
         }
     }
+
+    public insertUsuario = async (req: Request, res: Response) => {
+        try {
+            const newUsuario = await this.service.insertUsuario(req.body);
+            res.json(newUsuario);
+        } catch (error) {
+            console.error('Error al insertar el usuario:', error);
+            res.status(500).json({ error: 'Ocurrió un error al insertar el usuario' });
+        }
+    }
 }
 export default UsuarioController;
 export const usuariosController = new UsuarioController();
