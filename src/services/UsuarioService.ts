@@ -1,5 +1,5 @@
 import UsuarioDTO from "../model/dto/UsuarioDTO";
-import UsuarioInsertDTO from "../model/dto/UsuarioInsert";
+import UsuarioInsertDTO from "../model/dto/UsuarioInsertDTO";
 import UsuarioRepository, { usuarioRepository } from "../repositories/UsuarioRepository";
 
 class UsuarioService {

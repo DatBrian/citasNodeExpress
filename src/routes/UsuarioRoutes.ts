@@ -2,7 +2,7 @@ import { Router } from "express";
 import RouterCommon from "../common/RouterCommon";
 import UsuarioController, { usuariosController } from "../controllers/UsuarioController";
 import ValidateMiddlewareDTO from "../middleware/ValidateDTOMiddleware";
-import UsuarioInsertDTO from "../model/dto/UsuarioInsert";
+import UsuarioInsertDTO from "../model/dto/UsuarioInsertDTO";
 
 
 class UsuarioRoutes extends RouterCommon<UsuarioController, ValidateMiddlewareDTO>{

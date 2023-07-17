@@ -3,7 +3,7 @@ import { dataSource } from "../config/ConnectDataSource";
 import { Connection } from "../db/Connection";
 import { plainToClass } from "class-transformer";
 import UsuarioDTO from "../model/dto/UsuarioDTO";
-import UsuarioInsertDTO from "../model/dto/UsuarioInsert";
+import UsuarioInsertDTO from "../model/dto/UsuarioInsertDTO";
 
 class UsuarioRepository extends Connection {
 
@@ -33,7 +33,7 @@ class UsuarioRepository extends Connection {
         }
     }
 
-    public async insertUsuario(body: UsuarioInsertDTO): Promise<string>{
+    public async insertUsuario(body: UsuarioInsertDTO): Promise<string> {
         const connection = await dataSource.getConnection();
         try {
             const connect = await this.connect;
