@@ -73,6 +73,17 @@ class CitasController {
             res.status(500).json({ error: 'Ocurrió un error al obtener el conteo de citas' });
         }
     }
+
+    public getUserConsultorio = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const consultorios = await this.service.getUserConsultorio(id);
+            res.json(consultorios);
+        } catch (error) {
+            console.error('Error al obtener los consultorios del paciente:', error);
+            res.status(500).json({ error: 'Ocurrió un error al obtener los consultorios del paciente' });
+        }
+    }
 }
 
 export default CitasController;

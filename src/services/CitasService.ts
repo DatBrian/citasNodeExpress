@@ -1,3 +1,4 @@
+import { RowDataPacket } from "mysql2";
 import CitasDTO from "../model/dto/CitasDTO";
 import UsuarioDTO from "../model/dto/UsuarioDTO";
 import CitasRepository, { citasRepository } from "../repositories/CitasRepository";
@@ -58,6 +59,15 @@ class CitasService {
         try {
             const count = await this.repository.countCitas(id, date);
             return count;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async getUserConsultorio(id: string): Promise<RowDataPacket[]>{
+        try {
+            const consultorios = await this.repository.userConsultorios(id);
+            return consultorios;
         } catch (error) {
             throw error;
         }

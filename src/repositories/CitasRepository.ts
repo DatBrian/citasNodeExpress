@@ -169,6 +169,26 @@ class CitasRepository extends Connection {
             connection.release();
         }
     }
+
+    public async userConsultorios(id: string): Promise<RowDataPacket[]>{
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `
+            SELECT DISTINCT medico.med_consultorio AS consultorio
+            FROM cita
+            INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+            WHERE cita.cit_datosUsuario = ?
+            `;
+            const [rows] = await connect.query<RowDataPacket[]>(query, [id]);
+            return rows;
+        } catch (error) {
+            console.error('Error al obtener los consultorios de ese paciente :(', error);
+            throw new Error('Error al obtener los consultorios de ese paciente :(');
+        } finally {
+            connection.release();
+        }
+    }
 }
 export default CitasRepository;
 export const citasRepository = new CitasRepository();
