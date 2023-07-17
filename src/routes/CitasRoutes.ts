@@ -39,10 +39,14 @@ class CitasRoutes extends RouterCommon<CitasController, ValidateMiddlewareDTO>{
         this.router.get(`${this.path}/count/:id/:date`,
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getCountCitas)
-        
+
         this.router.get(`${this.path}/consultorio/:id`,
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getUserConsultorio)
+
+        this.router.get(`${this.path}/genero/:genero`,
+            (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
+            this.controller.getGeneroCitas)
     }
 }
 

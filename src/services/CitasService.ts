@@ -73,6 +73,15 @@ class CitasService {
         }
     }
 
+    public async getGeneroCitas(genero: string): Promise<CitasDTO[]>{
+        try {
+            const citas = await this.repository.generoCitas(genero);
+            return citas;
+        } catch (error) {
+            throw error;
+        }
+    }
+
 }
 
 export default CitasService;

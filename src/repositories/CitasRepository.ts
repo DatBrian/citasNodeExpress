@@ -90,7 +90,7 @@ class CitasRepository extends Connection {
         }
     }
 
-    public async userCitas(id: string): Promise<CitasDTO[]>{
+    public async userCitas(id: string): Promise<CitasDTO[]> {
         const connection = await dataSource.getConnection();
         try {
             const connect = await this.connect;
@@ -118,7 +118,7 @@ class CitasRepository extends Connection {
         }
     }
 
-    public async datesCita(date: string): Promise<CitasDTO[]>{
+    public async datesCita(date: string): Promise<CitasDTO[]> {
         const connection = await dataSource.getConnection();
         try {
             const connect = await this.connect;
@@ -146,7 +146,7 @@ class CitasRepository extends Connection {
         }
     }
 
-    public async countCitas(id: string, date: string): Promise<CitasDTO[]>{
+    public async countCitas(id: string, date: string): Promise<CitasDTO[]> {
         const connection = await dataSource.getConnection();
         try {
             const connect = await this.connect;
@@ -170,7 +170,7 @@ class CitasRepository extends Connection {
         }
     }
 
-    public async userConsultorios(id: string): Promise<RowDataPacket[]>{
+    public async userConsultorios(id: string): Promise<RowDataPacket[]> {
         const connection = await dataSource.getConnection();
         try {
             const connect = await this.connect;
@@ -185,6 +185,33 @@ class CitasRepository extends Connection {
         } catch (error) {
             console.error('Error al obtener los consultorios de ese paciente :(', error);
             throw new Error('Error al obtener los consultorios de ese paciente :(');
+        } finally {
+            connection.release();
+        }
+    }
+
+    public async generoCitas(genero: string): Promise<CitasDTO[]> {
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `
+                SELECT cita.*
+                FROM cita
+                INNER JOIN usuario ON cita.cit_datosUsuario = usuario.usu_id
+                INNER JOIN estado_cita ON cita.cit_estadoCita = estado_cita.estcita_id
+                INNER JOIN genero ON usuario.usu_genero = genero.gen_id
+                WHERE genero.gen_nombre = ? AND estado_cita.estcita_nombre ='ATENDIDA'
+            `;
+            const [rows] = await connect.query<RowDataPacket[]>(query, [genero]);
+            const dtos: CitasDTO[] = rows.map((row) => {
+                return plainToClass(CitasDTO, row, {
+                    excludeExtraneousValues: true
+                });
+            });
+            return dtos;
+        } catch (error) {
+            console.error('Error al obtener las citas de ese genero :(', error);
+            throw new Error('Error al obtener las citas de ese genero :(');
         } finally {
             connection.release();
         }

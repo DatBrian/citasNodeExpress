@@ -84,6 +84,17 @@ class CitasController {
             res.status(500).json({ error: 'Ocurrió un error al obtener los consultorios del paciente' });
         }
     }
+
+    public getGeneroCitas = async (req: Request, res: Response) => {
+        try {
+            const genero = req.params.genero;
+            const citas = await this.service.getGeneroCitas(genero);
+            res.json(citas);
+        } catch (error) {
+            console.error('Error al obtener las citas de ese genero:', error);
+            res.status(500).json({ error: 'Ocurrió un error al obtener las citas de ese genero' });
+        }
+    }
 }
 
 export default CitasController;
