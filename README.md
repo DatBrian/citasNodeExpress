@@ -91,3 +91,25 @@ npm run start:dev
 **https://{host}:{port}/api/v1/pacientes** -> Obtener todos los pacientes en orden alfabético
 
 **https://{host}:{port}/api/v1/medicos/especialidad** -> Obtener todos los médicos de una especialidad específica
+
+**https://{host}:{port}/api/v1/citas/next/idUsuario** -> Encontrar la próxima cita para un paciente específico (por ejemplo, el paciente con **usu_id 1**):
+
+**https://{host}:{port}/api/v1/citas/medico/:idMedico** -> Encontrar todos los pacientes que tienen citas con un médico específico (por ejemplo, el médico con **med_nroMatriculaProsional 1**)
+
+**https://{host}:{port}/api/v1/citas/paciente/:idPaciente** -> Obtener las consultorías para un paciente específico (por ejemplo, paciente **con usu_id 1**)
+
+**https://{host}:{port}/api/v1/citas/date/:date** -> Encontrar todas las citas para un día específico (por ejemplo, **'2023-07-12'**)
+
+**https://{host}:{port}/api/v1/medicos** -> Obtener los médicos y sus consultorios
+
+**https://{host}:{port}/api/v1/citas/count/:id/:date** -> Contar el número de citas que un médico tiene en un día específico (por ejemplo, el médico con **med_nroMatriculaProsional 1 en '2023-07-12'**)
+
+**https://{host}:{port}/api/v1/citas/consultorio/:id** -> Obtener los consultorio donde se aplicó las citas de un paciente
+
+**https://{host}:{port}/api/v1/citas/genero/:genero** -> Obtener todas las citas realizadas por los pacientes de un genero si su estado de la cita fue atendidad
+
+**https://{host}:{port}/api/v1/citas/refused/:month** -> Mostrar todas las citas que fueron rechazadas y en un mes específico, mostrar la fecha de la cita, el nombre del usuario y el médico.
+
+## POST:
+
+**https://{host}:{port}/api/v1/pacientes** -> Insertar un paciente a la tabla usuario pero si es menor de edad solicitar primero que ingrese el acudiente y validar si ya estaba registrado el acudiente.
