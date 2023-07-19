@@ -15,7 +15,6 @@
 ### **Directorio Raíz:**
 #### En el directorio raíz se encuentran los archivos principales de configuración sin entrar aún al código.
 #### ![Alt text](./screenshots/estructura.png)
-- #### Dentro de la carpeta [build](build) se encuentra todo el código TypeScript transpilado a JavaScript.
 
 - #### La carpeta [node_modules](node_modules) es la que se creará al inicializar el proyecto y contiene todas los archivos necesarios para las dependencias que se vayan a utilizar.
 
@@ -113,3 +112,8 @@ npm run start:dev
 ## POST:
 
 **https://{host}:{port}/api/v1/pacientes** -> Insertar un paciente a la tabla usuario pero si es menor de edad solicitar primero que ingrese el acudiente y validar si ya estaba registrado el acudiente.
+
+## **Consumo:**
+### Para hacer los post es necesario pasar un cuerpo válido que pueda ser aceptado por la base de datos, estas estructuras para las peticiones están definidaas dentro de la caarpeta [entities](./src/model/entities) de la carpeta [model](./src/model/), allí se encontrarán todas las entidades asociadas a las tablas de la base de datos y pueden utilizarse para crear la petición de manera correcta, en todo caso al enviar datos erróneos se mostrarán excepciones con los detaalles.
+
+last-update: 18/07/2023 - @DatBrian
