@@ -40,7 +40,7 @@ class UsuarioRepository extends Connection {
             const query = `INSERT INTO usuario SET ?`;
             await connect.query(query, body);
 
-            return 'Usuario insertado correctamente';
+            return 'Usuario insertado correctamente :D';
         } catch (error) {
             console.error("Error al insertar el paciente :(", error);
             throw new Error("Error al insertar el paciente :(");
@@ -55,8 +55,7 @@ class UsuarioRepository extends Connection {
             const connect = await this.connect;
             const query = `SELECT tipdoc_nombre FROM tipo_documento WHERE tipdoc_id = ?`;
             const [rows] = await connect.query<RowDataPacket[]>(query, [doc]);
-
-            return (rows[0].usu_tipodoc == "cedula de ciudadania")
+            return (rows[0].tipdoc_nombre == "cedula de ciudadania")
                 ? true
                 : false;
         } catch (error) {

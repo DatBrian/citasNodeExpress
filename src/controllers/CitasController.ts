@@ -42,7 +42,7 @@ class CitasController {
 
     public getUserCitas = async (req: Request, res: Response) => {
         try {
-            const paciente = req.params.id;
+            const paciente = req.params.idUsuario;
             const citas = await this.service.getUserCitas(paciente);
             res.json(citas);
         } catch (error) {
@@ -64,9 +64,9 @@ class CitasController {
 
     public getCountCitas = async (req: Request, res: Response) => {
         try {
-            const id = req.params.id;
+            const id = req.params.idMedico;
             const date = req.params.date;
-            const count = await this.service.getCoutCitas(id, date);
+            const count = await this.service.getCountCitas(id, date);
             res.json(count);
         } catch (error) {
             console.error('Error al obtener el conteo de citas:', error);
@@ -76,7 +76,7 @@ class CitasController {
 
     public getUserConsultorio = async (req: Request, res: Response) => {
         try {
-            const id = req.params.id;
+            const id = req.params.idUsuario;
             const consultorios = await this.service.getUserConsultorio(id);
             res.json(consultorios);
         } catch (error) {
@@ -95,7 +95,7 @@ class CitasController {
             res.status(500).json({ error: 'Ocurrió un error al obtener las citas de ese genero' });
         }
     }
-    
+
     public getRefusedCitas = async (req: Request, res: Response) => {
         try {
             const month = req.params.month;

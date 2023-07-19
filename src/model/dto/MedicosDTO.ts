@@ -36,6 +36,9 @@ class MedicosDTO{
 
     @Expose({ name: 'especialidad' })
     @IsOptional()
+    @Transform(({ value }) => (/^[A-Za-z]+$/.test(value) || typeof value === "undefined") ? value :
+        { status: 400, message: "error en el ingreso del dato del género. El ingreso es de la abreviatura en mayúsculas o minúsculas. (revisar base de datos)" },
+        { toClassOnly: true })
     @IsString()
     public especialidad: string;
 

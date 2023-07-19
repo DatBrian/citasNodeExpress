@@ -28,7 +28,7 @@ class CitasRoutes extends RouterCommon<CitasController, ValidateMiddlewareDTO>{
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getUserMedicoCita)
 
-        this.router.get(`${this.path}/paciente/:id`,
+        this.router.get(`${this.path}/paciente/:idUsuario`,
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getUserCitas)
 
@@ -36,11 +36,11 @@ class CitasRoutes extends RouterCommon<CitasController, ValidateMiddlewareDTO>{
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getDateCitas)
 
-        this.router.get(`${this.path}/count/:id/:date`,
+        this.router.get(`${this.path}/count/:idMedico/:date`,
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getCountCitas)
 
-        this.router.get(`${this.path}/consultorio/:id`,
+        this.router.get(`${this.path}/consultorio/:idUsuario`,
             (req, res, next) => ValidateMiddlewareDTO.validatorParams(req, res, next, CitasDTO),
             this.controller.getUserConsultorio)
 

@@ -1,5 +1,5 @@
 import { Expose, Transform } from "class-transformer";
-import { IsInt, IsOptional, IsString } from "class-validator";
+import { IsInt, IsNumberString, IsOptional, IsString } from "class-validator";
 
 class CitasDTO {
     @Expose({ name: 'cit_fecha' })
@@ -25,27 +25,37 @@ class CitasDTO {
     @Expose({ name: 'estado' })
     @IsOptional()
     @IsString()
-    public estado: string
+    public estado: string;
 
     @Expose({ name: 'medico_nombre' })
     @IsOptional()
     @IsString()
-    public medico: string
+    public medico: string;
 
     @Expose({ name: 'usuario_nombre' })
     @IsOptional()
     @IsString()
-    public usuario: string
+    public usuario: string;
 
     @Expose({ name: 'idUsuario' })
     @IsOptional()
-    @Transform(({ value }) => parseInt(value))
-    public idUsuario: string
+    @Transform(({ value }) => {
+        return /^[0-9]+$/.test(value) || typeof value === "undefined"
+            ? value
+            : (() => { throw new Error("El id proporcionado no es un parámetro válido, ingrese un número entero >:("); })();
+    }, { toClassOnly: true })
+    @IsNumberString()
+    public idUsuario: string;
 
     @Expose({ name: 'idMedico' })
     @IsOptional()
-    @Transform(({ value }) => parseInt(value))
-    public idMedico: string
+    @Transform(({ value }) => {
+        return /^[0-9]+$/.test(value) || typeof value === "undefined"
+            ? value
+            : (() => { throw new Error("El id proporcionado no es un parámetro válido, ingrese un número entero >:("); })();
+    }, { toClassOnly: true })
+    @IsNumberString()
+    public idMedico: string;
 
     @Expose({ name: 'count' })
     @IsOptional()

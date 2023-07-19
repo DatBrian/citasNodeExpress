@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { plainToClass } from "class-transformer";
-import { validate, ValidationError } from "class-validator";
+import { validate } from "class-validator";
 
 class ValidateMiddlewareDTO {
     constructor() { }
@@ -13,18 +13,11 @@ class ValidateMiddlewareDTO {
     ) {
         try {
             const dto = plainToClass(type, req.body);
-            const errors: ValidationError[] = await validate(dto);
-            return errors.length > 0
-                ? res.status(400).json({
-                    errors: errors.map((error) => ({
-                        property: error.property,
-                        constraints: error.constraints,
-                    }))
-                })
-                : ((req.body = dto), next());
-        } catch (error) {
-            console.error(error);
-            return res.status(500).json({ error: "Internal Server Error " });
+            await validate(dto);
+            return ((req.body = dto), next());
+        } catch (error: any) {
+            console.error(error.message);
+            return res.status(500).json({ error: "Error en los parámetros de la consulta, revisa la consola para mas información" });
         }
     }
 
@@ -36,18 +29,11 @@ class ValidateMiddlewareDTO {
     ) {
         try {
             const dto = plainToClass(type, JSON.parse(JSON.stringify(req.params)), { excludeExtraneousValues: true });
-            const errors: ValidationError[] = await validate(dto);
-            return errors.length > 0
-                ? res.status(400).json({
-                    errors: errors.map((error) => ({
-                        property: error.property,
-                        constraints: error.constraints,
-                    }))
-                })
-                : ((req.body = dto), next());
-        } catch (error) {
-            console.error(error);
-            return res.status(500).json({ error: "Internal Server Error " });
+            await validate(dto);
+            return ((req.body = dto), next());
+        } catch (error: any) {
+            console.error(error.message);
+            return res.status(500).json({ error: "Error en el cuerpo de la consulta, revisa la consola para más información" });
         }
     }
 }

@@ -24,7 +24,7 @@ class MedicoService{
 
             return especialidadExists
                 ? await this.repository.getMedicosbyEsp(especialidad)
-                : "La especialidad indicada no existe";
+                : "La especialidad indicada no existe :/";
         } catch (error) {
             throw error;
         }

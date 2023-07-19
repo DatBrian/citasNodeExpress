@@ -175,11 +175,11 @@ class CitasRepository extends Connection {
         try {
             const connect = await this.connect;
             const query = `
-            SELECT DISTINCT medico.med_consultorio AS consultorio
-            FROM cita
-            INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
-            WHERE cita.cit_datosUsuario = ?
-            `;
+                SELECT DISTINCT consultorio.cons_nombre AS nombre_consultorio
+                FROM cita
+                INNER JOIN medico ON cita.cit_medico = medico.med_nroMatriculaProsional
+                INNER JOIN consultorio ON medico.med_consultorio = consultorio.cons_codigo
+                WHERE cita.cit_datosUsuario = ?`;
             const [rows] = await connect.query<RowDataPacket[]>(query, [id]);
             return rows;
         } catch (error) {
@@ -243,6 +243,45 @@ class CitasRepository extends Connection {
         } finally {
             connection.release();
         }
+    }
+
+    //* Validaciones de existencia en la base de datos
+
+    public async verifyPaciente(paciente: string): Promise<boolean> {
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `SELECT count(*) as count FROM usuario WHERE usu_id = ?`;
+            const [rows] = await connect.query<RowDataPacket[]>(query, [paciente]);
+
+            const count = rows[0].count;
+
+            return (count > 0) ? true : false;
+        } catch (error) {
+            console.error('Error al verificar el paciente:', error);
+            throw new Error('Error al verificar el paciente');
+        } finally {
+            connection.release();
+        }
+    }
+
+    public async verifyMedico(medico: string): Promise<boolean> {
+        const connection = await dataSource.getConnection();
+        try {
+            const connect = await this.connect;
+            const query = `SELECT count(*) AS count FROM medico WHERE med_nroMatriculaProsional = ?`
+            const [rows] = await connect.query<RowDataPacket[]>(query, [medico]);
+
+            const count = rows[0].count;
+
+            return (count > 0) ? true : false;
+        } catch (error) {
+            console.error('Error al verificar el doctor:', error);
+            throw new Error('Error al verificar el doctor');
+        } finally {
+            connection.release();
+        }
+
     }
 }
 export default CitasRepository;

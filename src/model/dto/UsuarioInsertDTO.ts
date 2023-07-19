@@ -4,26 +4,41 @@ import { IsOptional, IsString } from 'class-validator';
 class UsuarioInsertDTO {
     @Expose({ name: 'name' })
     @IsOptional()
+    @Transform(({ value }) => (/^[A-Za-z]+$/.test(value) || typeof value === "undefined") ? value :
+        { status: 400, message: "Error en el ingreso del nombre, utilice solo letras sin espacios" },
+        { toClassOnly: true })
     @IsString()
     public usu_nombre: string;
 
     @Expose({ name: 'secondName' })
     @IsOptional()
+    @Transform(({ value }) => (/^[A-Za-z]+$/.test(value) || typeof value === "undefined") ? value :
+        { status: 400, message: "Error en el ingreso del segundo nombre, utilice solo letras sin espacios" },
+        { toClassOnly: true })
     @IsString()
     public usu_segdo_nombre: string;
 
     @Expose({ name: 'lastName' })
     @IsOptional()
+    @Transform(({ value }) => (/^[A-Za-z]+$/.test(value) || typeof value === "undefined") ? value :
+        { status: 400, message: "Error en el ingreso del apellido, utilice solo letras sin espacios" },
+        { toClassOnly: true })
     @IsString()
     public usu_primer_apellido_usuar: string;
 
     @Expose({ name: 'secondLastName' })
     @IsOptional()
+    @Transform(({ value }) => (/^[A-Za-z]+$/.test(value) || typeof value === "undefined") ? value :
+        { status: 400, message: "Error en el ingreso del segundo apellido, ingrese solo letras sin espacios" },
+        { toClassOnly: true })
     @IsString()
     public usu_segdo_apellido_usuar: string;
 
     @Expose({ name: 'phone' })
     @IsOptional()
+    @Transform(({ value }) => (/^(?:\+\d{1,3}\s?)?\d{10}$/.test(value) || typeof value === "undefined") ? value :
+        { status: 400, message: "Error en el ingreso del número de teléfono. El formato válido es de 10 dígitos numéricos con un prefijo opcional en formato '+XXX'." },
+        { toClassOnly: true })
     @IsString()
     public usu_telefono: string;
 
@@ -34,27 +49,43 @@ class UsuarioInsertDTO {
 
     @Expose({ name: 'mail' })
     @IsOptional()
+    @Transform(({ value }) => (/\S+@\S+\.\S+/.test(value) || typeof value === "undefined") ? value :
+        (() => { throw new Error("El parámetro email proporcionado no es un parámetro válido, ingrese un número entero >:("); })(),
+        { toClassOnly: true })
     @IsString()
     public usu_email: string;
 
     @Expose({ name: 'doc' })
     @IsOptional()
-    @Transform(({ value }) => parseInt(value))
+    @Transform(({ value }) => {
+        return /^[0-9]+$/.test(value) || typeof value === "undefined"
+            ? value
+            : (() => { throw new Error("El parámetro doc proporcionado no es un parámetro válido, ingrese un número entero >:("); })();
+    }, { toClassOnly: true })
     public usu_tipodoc: number;
 
     @Expose({ name: 'genero' })
     @IsOptional()
-    @Transform(({ value }) => parseInt(value))
+    @Transform(({ value }) => {
+        return /^[0-9]+$/.test(value) || typeof value === "undefined"
+            ? value
+            : (() => { throw new Error("El id de género proporcionado no es un parámetro válido, ingrese un número entero >:("); })();
+    }, { toClassOnly: true })
     public usu_genero: number;
 
     @Expose({ name: 'acudiente' })
     @IsOptional()
-    @Transform(({ value }) => {
-        if (value === null || value === '') {
-            return null;
-        }
-        return parseInt(value);
-    })
+    @Transform(({ value }) =>
+        value === null || value === '' || value === undefined
+            ? null
+            : /^[0-9]+$/.test(value) || typeof value === 'undefined'
+                ? parseInt(value)
+                : (() => {
+                    throw new Error(
+                        'El id de acudiente proporcionado no es un parámetro válido, ingrese un número entero >:('
+                    );
+                })()
+    )
     public usu_acudiente: number;
 
     constructor(

@@ -20,18 +20,17 @@ class UsuarioService {
 
     public async insertUsuario(body: UsuarioInsertDTO): Promise<string> {
         try {
-            const docVerified = await this.repository.verifyDoc(body.usu_tipodoc);
-            const acudienteVerified = await this.repository.verifyAcudiente(body.usu_acudiente);
-            return docVerified
-                ? await this.repository.insertUsuario(body)
-                : acudienteVerified
+            const isAdult = await this.repository.verifyDoc(body.usu_tipodoc);
+            return isAdult
+                ? (await this.repository.insertUsuario(body))
+                : (await this.repository.verifyAcudiente(body.usu_acudiente))
                     ? await this.repository.insertUsuario(body)
                     : 'Debe ingresar primero un acudiente';
-
         } catch (error) {
             throw error;
         }
     }
+
 }
 export default UsuarioService;
 export const usuarioService = new UsuarioService();
